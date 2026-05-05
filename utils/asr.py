@@ -2,8 +2,10 @@ import streamlit as st
 import whisper
 
 
-@st.cache_resource
-def get_asr_model():
-    # Initialize ASR client
-    model = whisper.load_model("base")
-    return model
+class ASRModel:
+    def __init__(self):
+        self._model = whisper.load_model("base")
+
+    def transcribe(self, audio):
+        result = self._model.transcribe(audio)
+        return result["text"]
