@@ -1,0 +1,8 @@
+streamlit
+openai
+openai-whisper
+langchain
+langchain-openai
+langchain-qdrant
+qdrant-client
+numpy
