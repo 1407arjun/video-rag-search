@@ -19,18 +19,18 @@ def render_upload():
                 "❌ This does not look like a valid Instagram Reel URL. Please check the link and try again.")
         else:
             if st.button("Download & Process"):
-                with st.spinner("Downloading from Instagram..."):
-                    try:
+                try:
+                    with st.spinner("Downloading from Instagram..."):
                         video_data = download_video(video_url)
                         st.success(
                             "Downloaded successfully! Processing extraction pipeline...")
 
-                        with st.spinner("Running visual and audio analysis..."):
-                            run_extraction_pipeline(video_data)
+                    with st.spinner("Running visual and audio analysis..."):
+                        run_extraction_pipeline(video_data)
 
-                    except Exception as e:
-                        st.error(
-                            f"Failed to download or process Reel. Instagram might be rate-limiting. Details: {e}")
+                except Exception as e:
+                    st.error(
+                        f"Failed to download or process Reel. Instagram might be rate-limiting. Details: {e}")
 
 
 def render_review():
@@ -50,10 +50,10 @@ def render_review():
                 "Visual Description (VLM)", value=data["visual_description"], height=200)
             edited_transcript = st.text_area(
                 "Audio Transcript (Whisper)", value=data["transcript"], height=100)
-            edited_url = st.text_input("URL (if any)", value=data["url"])
-            edited_title = st.text_input("Title (if any)", value=data["title"])
+            edited_url = st.text_input("URL", value=data["url"])
+            edited_title = st.text_input("Title", value=data["title"])
             edited_description = st.text_area(
-                "Description (if any)", value=data["description"], height=200)
+                "Description", value=data["description"], height=200)
 
         if st.button("Confirm & Save to Vector Store", type="primary"):
             with st.spinner("Saving to Qdrant..."):
