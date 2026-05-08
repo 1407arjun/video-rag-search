@@ -6,7 +6,7 @@ langchain-openai
 langchain-qdrant
 qdrant-client
 numpy
-opencv-python
+opencv-python-headless
 python-dotenv
 rank-bm25
 yt-dlp
