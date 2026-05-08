@@ -3,6 +3,7 @@ import subprocess
 import tempfile
 import base64
 import shutil
+import cv2
 
 
 class VideoProcessor:
@@ -19,7 +20,16 @@ class VideoProcessor:
                        stderr=subprocess.STDOUT)
         return audio_path
 
-    def sample_video(self, scene_threshold=0.3) -> list[str]:
+    def _generate_thumbnail(self, frame_file: str, width=320):
+        frame = cv2.imread(frame_file)
+        height = int(frame.shape[0] * (width / frame.shape[1]))
+        resized = cv2.resize(frame, (width, height),
+                             interpolation=cv2.INTER_AREA)
+        _, buffer = cv2.imencode(
+            '.jpg', resized, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+        return base64.b64encode(buffer).decode('utf-8')
+
+    def sample_video(self, scene_threshold=0.3) -> tuple[list[str], str]:
         temp_dir = tempfile.mkdtemp()
         output_pattern = os.path.join(temp_dir, "keyframe_%04d.jpg")
         frames = []
@@ -53,7 +63,7 @@ class VideoProcessor:
                         image_file.read()).decode("utf-8")
                     frames.append(b64_string)
 
-            return frames
+            return frames, self._generate_thumbnail(frame_files[0])
         finally:
             if os.path.exists(temp_dir):
                 shutil.rmtree(temp_dir)

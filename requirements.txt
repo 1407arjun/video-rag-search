@@ -6,4 +6,5 @@ langchain-openai
 langchain-qdrant
 qdrant-client
 numpy
+opencv-python
 python-dotenv
