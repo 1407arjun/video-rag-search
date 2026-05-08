@@ -45,6 +45,12 @@ class VectorStore:
     def add_document(self, content: str, metadata: Metadata):
         self.store.add_documents(
             [Document(page_content=content, metadata=metadata)])
+        
+    def delete_document(self, document_id: str):
+        self.client.delete(
+            collection_name=self.collection_name,
+            points_selector=models.PointIdsList(points=[document_id]),
+        )
 
     def list_documents(self) -> list[Metadata]:
         records, _ = self.client.scroll(
