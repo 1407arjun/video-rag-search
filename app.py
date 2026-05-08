@@ -1,9 +1,5 @@
 import streamlit as st
 
-# autopep8: off
-from dotenv import load_dotenv
-load_dotenv()
-
 from ui import render_search, render_upload, render_review, render_library
 
 st.set_page_config(page_title="Video Semantic Search (Qdrant)", layout="wide")

@@ -1,18 +1,10 @@
 import os
-import tempfile
 import streamlit as st
 
 from .data_extraction import DataExtractor
 from .vector_store import VectorStore, Metadata
 from .bm25 import rerank_documents, combine_text
 from .download import download_video, VideoData
-
-QDRANT_URL = os.environ.get("QDRANT_URL")
-QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY")
-COLLECTION_NAME = "video_contents"
-
-store = VectorStore(url=QDRANT_URL, api_key=QDRANT_API_KEY,
-                    collection_name=COLLECTION_NAME)
 
 
 def run_extraction_pipeline(video_data: VideoData):
@@ -38,4 +30,6 @@ def run_extraction_pipeline(video_data: VideoData):
 
 @st.cache_resource
 def get_vector_store():
+    store = VectorStore(url=st.secrets.qdrant.url,
+                        api_key=st.secrets.qdrant.api_key, collection_name="video_contents")
     return store
