@@ -8,3 +8,4 @@ qdrant-client
 numpy
 opencv-python
 python-dotenv
+rank-bm25

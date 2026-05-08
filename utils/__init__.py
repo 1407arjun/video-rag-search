@@ -4,6 +4,7 @@ import streamlit as st
 
 from .data_extraction import DataExtractor
 from .vector_store import VectorStore, Metadata
+from .bm25 import rerank_documents
 
 QDRANT_URL = os.environ.get("QDRANT_URL")
 QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY")
@@ -11,6 +12,15 @@ COLLECTION_NAME = "video_contents"
 
 store = VectorStore(url=QDRANT_URL, api_key=QDRANT_API_KEY,
                     collection_name=COLLECTION_NAME)
+
+
+def combine_text(metadata: Metadata) -> str:
+    return f"""
+    Visual Description: {metadata.get('visual_description')}
+    Audio Transcript: {metadata.get('transcript')}
+    Title: {metadata.get('title')}
+    Description: {metadata.get('description')}
+    """
 
 
 def run_extraction_pipeline(uploaded_file):

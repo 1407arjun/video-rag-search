@@ -1,6 +1,6 @@
 import streamlit as st
 
-from utils import run_extraction_pipeline, get_vector_store, Metadata
+from utils import run_extraction_pipeline, get_vector_store, combine_text, Metadata
 
 
 def render_upload():
@@ -36,13 +36,6 @@ def render_review():
 
         if st.button("Confirm & Save to Vector Store", type="primary"):
             with st.spinner("Saving to Qdrant..."):
-                combined_content = f"""
-                Visual Description: {edited_visual_description}
-                Audio Transcript: {edited_transcript}
-                Title: {edited_title}
-                Description: {edited_description}
-                """
-
                 metadata: Metadata = {
                     **data,
                     "transcript": edited_transcript,
@@ -51,6 +44,8 @@ def render_review():
                     "description": edited_description,
                     "url": edited_url
                 }
+
+                combined_content = combine_text(metadata)
 
                 # Save using LangChain Qdrant integration
                 get_vector_store().add_document(content=combined_content, metadata=metadata)
