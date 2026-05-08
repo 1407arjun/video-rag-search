@@ -1,29 +1,27 @@
-import streamlit as st
-import os
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 from langchain_qdrant import QdrantVectorStore
 
-from .llm import get_embedding_model
+from .llm import OpenAIModel
 
-QDRANT_URL = os.environ.get("QDRANT_URL")
-COLLECTION_NAME = "video_contents"
 
-@st.cache_resource
-def get_vector_store():
-    # Initialize Qdrant Client
-    q_client = QdrantClient(url=QDRANT_URL)
-    
-    # Create collection if it doesn't exist
-    collections = q_client.get_collections().collections
-    if not any(c.name == COLLECTION_NAME for c in collections):
-        q_client.create_collection(
+class VectorStore:
+    def __init__(self, qdrant_url: str, collection_name: str, llm: OpenAIModel):
+        q_client = QdrantClient(url=qdrant_url)
+
+        collections = q_client.get_collections().collections
+        if not any(c.name == collection_name for c in collections):
+            q_client.create_collection(
+                collection_name=collection_name,
+                vectors_config=models.VectorParams(
+                    size=1536, distance=models.Distance.COSINE),
+            )
+
+        self.store = QdrantVectorStore(
+            client=q_client,
             collection_name=COLLECTION_NAME,
-            vectors_config=models.VectorParams(size=1536, distance=models.Distance.COSINE),
+            embedding=llm.get_embedding()
         )
-    
-    return QdrantVectorStore(
-        client=q_client,
-        collection_name=COLLECTION_NAME,
-        embedding=get_embedding_model()
-    )
+
+    def get_vector_store(self):
+        return self.store

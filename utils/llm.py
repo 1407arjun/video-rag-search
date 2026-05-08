@@ -1,16 +1,20 @@
-import streamlit as st
-import os
-from openai import OpenAI
-from langchain_openai import OpenAIEmbeddings
-
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+from openai import AzureOpenAI
+from langchain_openai import AzureOpenAIEmbeddings
 
 
 class OpenAIModel:
-    def __init__(self):
-        self._client = OpenAI(api_key=OPENAI_API_KEY)
-        self._embedding_model = OpenAIEmbeddings(
-            model="text-embedding-3-small")
+    def __init__(self, api_key: str, endpoint: str):
+        self._client = AzureOpenAI(
+            api_version="2025-03-01-preview",
+            azure_endpoint=endpoint,
+            api_key=api_key
+        )
+        self._embedding_model = AzureOpenAIEmbeddings(
+            api_version="2025-03-01-preview",
+            model="text-embedding-3-small",
+            azure_endpoint=endpoint,
+            api_key=api_key
+        )
 
     def call_llm(self, messages: list) -> str:
         response = self._client.chat.completions.create(

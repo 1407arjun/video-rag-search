@@ -1,8 +1,9 @@
+from typing import TypedDict
+from itertools import batched
+
 from utils.llm import OpenAIModel
 from utils.asr import ASRModel
 from .video_processing import VideoProcessor
-from typing import TypedDict
-from itertools import batched
 
 
 class ExtractedData(TypedDict):
