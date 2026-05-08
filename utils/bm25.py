@@ -25,7 +25,7 @@ def rerank_documents(query, docs, top_k=5) -> list[tuple[Metadata, float]]:
     query_tokens = re.sub(r'[^\w\s]', '', query.lower()).split()
     bm25_scores = bm25.get_scores(query_tokens)
 
-    scored_docs = list(zip(docs, bm25_scores))
+    scored_docs = list(zip([doc.metadata for doc in docs], bm25_scores))
 
     # Sort descending by BM25 score
     scored_docs.sort(key=lambda x: x[1], reverse=True)
