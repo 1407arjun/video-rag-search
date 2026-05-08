@@ -2,15 +2,14 @@ import os
 from itertools import batched
 import streamlit as st
 
-from utils.llm import OpenAIModel
-from utils.asr import ASRModel
-from video_processing import VideoProcessor
+from models import get_llm, get_asr_model
+from .video_processing import VideoProcessor
 
 
 class DataExtractor:
-    def __init__(self, video_path: str, llm: OpenAIModel, asr: ASRModel):
-        self.llm = llm
-        self.asr = asr
+    def __init__(self, video_path: str):
+        self.llm = get_llm()
+        self.asr = get_asr_model()
         self.processor = VideoProcessor(video_path)
 
     def _transcribe_audio(self) -> str:
@@ -50,7 +49,6 @@ class DataExtractor:
 
         return caption
 
-    # Method abstraction to allow for progress display
     def extract_data(self) -> tuple[str, str]:
         progress = st.progress(0, text="Extracting audio...")
         transcript = self._transcribe_audio()

@@ -24,5 +24,15 @@ class OpenAIModel:
         )
         return response.choices[0].message.content
 
-    def get_embedding(self):
+
+class OpenAIEmbeddingModel:
+    def __init__(self, api_key: str, endpoint: str):
+        self._embedding_model = AzureOpenAIEmbeddings(
+            api_version="2025-03-01-preview",
+            model="text-embedding-3-small",
+            azure_endpoint=endpoint,
+            api_key=api_key
+        )
+
+    def get_embedding_model(self):
         return self._embedding_model

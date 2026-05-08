@@ -1,55 +1,30 @@
-import os
 import streamlit as st
-import tempfile
 
-from utils.vector_store import VectorStore
-from utils.asr import ASRModel
-from utils.llm import OpenAIModel
-from utils.vector_store import Metadata
-from data_extraction import DataExtractor
-
+# autopep8: off
 from dotenv import load_dotenv
 load_dotenv()
 
+from ui import render_search, render_upload, render_review, render_library
 
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-OPENAI_ENDPOINT = os.environ.get("OPENAI_ENDPOINT")
+st.set_page_config(page_title="Video Semantic Search (Qdrant)", layout="wide")
 
-QDRANT_URL = os.environ.get("QDRANT_URL")
-QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY")
-COLLECTION_NAME = "video_contents"
+if "uploader_key" not in st.session_state:
+    st.session_state.uploader_key = 0
 
-llm = OpenAIModel(api_key=OPENAI_API_KEY, endpoint=OPENAI_ENDPOINT)
-asr = ASRModel()
-store = VectorStore(url=QDRANT_URL, api_key=QDRANT_API_KEY,
-                    collection_name=COLLECTION_NAME, llm=llm)
+if "processed_video_data" not in st.session_state:
+    st.session_state.processed_video_data = None
 
+st.title("🎥 AI Video Search (Qdrant + LangChain)")
 
-def run_extraction_pipeline(uploaded_file):
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as tmp:
-        tmp.write(uploaded_file.read())
-        video_path = tmp.name
+tab_search, tab_upload, tab_library = st.tabs(
+    ["🔍 Search", "⬆️ Upload & Review", "📚 Video Library"])
 
-    data_extractor = DataExtractor(video_path, llm=llm, asr=asr)
+with tab_search:
+    render_search()
 
-    try:
-        transcript, caption, thumbnail = data_extractor.extract_data()
-        # Save to session state for the review UI
-        metadata: Metadata = {
-            "filename": uploaded_file.name,
-            "transcript": transcript,
-            "visual_description": caption,
-            "title": "",
-            "description": "",
-            "thumbnail": thumbnail,
-            "url": ""
-        }
-        st.session_state.processed_video_data = metadata
-    finally:
-        if os.path.exists(video_path):
-            os.remove(video_path)
+with tab_upload:
+    render_upload()
+    render_review()
 
-
-@st.cache_resource
-def get_vector_store():
-    return store
+with tab_library:
+    render_library()

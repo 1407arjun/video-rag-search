@@ -4,7 +4,7 @@ from qdrant_client.http import models
 from langchain_qdrant import QdrantVectorStore
 from langchain_core.documents import Document
 
-from .llm import OpenAIModel
+from models import get_embedding
 
 
 class Metadata(TypedDict):
@@ -17,7 +17,7 @@ class Metadata(TypedDict):
 
 
 class VectorStore:
-    def __init__(self, url: str, api_key: str, collection_name: str, llm: OpenAIModel):
+    def __init__(self, url: str, api_key: str, collection_name: str):
         q_client = QdrantClient(url=url, api_key=api_key)
         self.collection_name = collection_name
 
@@ -33,7 +33,7 @@ class VectorStore:
         self.store = QdrantVectorStore(
             client=q_client,
             collection_name=self.collection_name,
-            embedding=llm.get_embedding()
+            embedding=get_embedding().get_embedding_model()
         )
 
     def get_vector_store(self):
