@@ -1,14 +1,10 @@
-from typing import TypedDict
+import os
 from itertools import batched
+import streamlit as st
 
 from utils.llm import OpenAIModel
 from utils.asr import ASRModel
-from .video_processing import VideoProcessor
-
-
-class ExtractedData(TypedDict):
-    transcript: str
-    caption: str
+from video_processing import VideoProcessor
 
 
 class DataExtractor:
@@ -19,12 +15,14 @@ class DataExtractor:
 
     def _transcribe_audio(self) -> str:
         audio_path = self.processor.get_audio()
-        with open(audio_path, "rb") as f:
-            return self.asr.transcribe(audio_path)
+        try:
+            with open(audio_path, "rb") as f:
+                return self.asr.transcribe(audio_path)
+        finally:
+            if os.path.exists(audio_path):
+                os.remove(audio_path)
 
-    def _caption_video(self) -> str:
-        frames = self.processor.sample_video()
-
+    def _caption_video(self, frames: list[str]) -> str:
         system_prompt = """
         You are a video analysis assistant. Given frames from a video segment and an optional transcript, write a concise 2–4 sentence description of 
         what is visually happening. Include key objects, on-screen text, people, and actions. Be specific and factual.
@@ -52,8 +50,17 @@ class DataExtractor:
 
         return caption
 
-    def extract_data(self) -> ExtractedData:
+    # Method abstraction to allow for progress display
+    def extract_data(self) -> tuple[str, str]:
+        progress = st.progress(0, text="Extracting audio...")
         transcript = self._transcribe_audio()
-        caption = self._caption_video()
 
-        return {transcript, caption}
+        progress.progress(
+            40, text="Audio transcribed. Extracting dynamic frames...")
+        frames, thumbnail = self.processor.sample_video()
+
+        progress.progress(60, text="Analyzing visuals with VLM...")
+        caption = self._caption_video(frames)
+
+        progress.progress(100, text="Processing complete! Ready for review.")
+        return transcript, caption, f"data:image/jpeg;base64,{thumbnail}"
