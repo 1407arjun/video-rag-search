@@ -9,3 +9,4 @@ numpy
 opencv-python
 python-dotenv
 rank-bm25
+yt-dlp

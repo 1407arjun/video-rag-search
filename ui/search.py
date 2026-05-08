@@ -17,8 +17,10 @@ def render_search():
                         st.image(metadata.get('thumbnail'))
                     with col2:
                         st.subheader(
-                            f"{metadata.get('filename')} (Rank: #{i+1}, Score: {score:.2f})")
+                            f"{metadata.get('title')} (Rank: #{i+1}, Score: {score:.2f})")
                         st.write(
+                            f"**Caption:** {metadata.get('description')}")
+                        st.caption(
                             f"**Visual:** {metadata.get('visual_description')}")
                         st.caption(f"**Speech:** {metadata.get('transcript')}")
                         if metadata.get('url') is not None:

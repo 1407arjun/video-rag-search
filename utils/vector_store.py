@@ -8,7 +8,6 @@ from models import get_embedding
 
 
 class Metadata(TypedDict):
-    filename: str
     transcript: str
     visual_description: str
     title: str
@@ -45,7 +44,7 @@ class VectorStore:
     def add_document(self, content: str, metadata: Metadata):
         self.store.add_documents(
             [Document(page_content=content, metadata=metadata)])
-        
+
     def delete_document(self, document_id: str):
         self.client.delete(
             collection_name=self.collection_name,

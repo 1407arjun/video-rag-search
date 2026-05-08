@@ -16,25 +16,26 @@ def render_library():
                 # LangChain Qdrant integration nests your metadata inside a "metadata" key in the payload
                 metadata = payload.get("metadata", {})
                 with st.container(border=True):
-                    c1, c2, c3 = st.columns([1, 3, 1])
+                    c1, c2 = st.columns([1, 4])
                     with c1:
                         st.image(metadata.get('thumbnail'))
                     with c2:
                         st.markdown(
-                            f"**🎬 {metadata.get('filename', 'Unknown Video')}**")
+                            f"**🎬 {metadata.get('title')}**")
                         st.caption(
-                            f"**Visuals:** {metadata.get('visual_description', '')[:150]}...")
+                            f"**Caption:** {metadata.get('description', '')[:300]}...")
                         st.caption(
-                            f"**Transcript:** {metadata.get('transcript', '')[:150]}...")
+                            f"**Visuals:** {metadata.get('visual_description', '')[:300]}...")
+                        st.caption(
+                            f"**Transcript:** {metadata.get('transcript', '')[:300]}...")
                         if metadata.get('url') is not None:
                             st.markdown(
                                 f"[{metadata.get('url')}]({metadata.get('url')})")
-                    with c3:
                         if st.button("Delete", key=f"del_{record.id}"):
                             with st.spinner("Deleting..."):
                                 get_vector_store().delete_document(record.id)
                             st.success(
-                                f"Deleted '{metadata.get('filename', 'Unknown Video')}'")
+                                f"Deleted '{metadata.get('title')}'")
                             st.rerun()  # Refresh the UI instantly
     except Exception as e:
         st.error(

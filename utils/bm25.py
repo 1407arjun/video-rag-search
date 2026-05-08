@@ -1,7 +1,16 @@
 from rank_bm25 import BM25Okapi
 import re
 
-from utils import combine_text, Metadata
+from utils import Metadata
+
+
+def combine_text(metadata: Metadata) -> str:
+    return f"""
+    Visual Description: {metadata.get('visual_description')}
+    Audio Transcript: {metadata.get('transcript')}
+    Title: {metadata.get('title')}
+    Description: {metadata.get('description')}
+    """
 
 
 def rerank_documents(query, docs, top_k=5) -> list[tuple[Metadata, float]]:

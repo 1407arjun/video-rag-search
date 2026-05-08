@@ -1,15 +1,36 @@
 import streamlit as st
+import re
 
-from utils import run_extraction_pipeline, get_vector_store, combine_text, Metadata
+from utils import run_extraction_pipeline, get_vector_store, combine_text, download_video, Metadata
+
+pattern = r"^(https?://)?(www\.)?instagram\.com/reels?/[\w-]+/?"
 
 
 def render_upload():
-    st.subheader("1. Upload Video")
-    up_file = st.file_uploader("Upload MP4", type=[
-                               "mp4"], key=f"video_uploader_{st.session_state.uploader_key}")
+    st.subheader("1. Paste Instagram Video URL")
+    video_url = st.text_input(
+        "Enter Instagram Reel URL",
+        placeholder="https://www.instagram.com/reels/...",
+        key=f"url_input_{st.session_state.uploader_key}"
+    )
+    if video_url:
+        if re.match(pattern, video_url) is None:
+            st.error(
+                "❌ This does not look like a valid Instagram Reel URL. Please check the link and try again.")
+        else:
+            if st.button("Download & Process"):
+                with st.spinner("Downloading from Instagram..."):
+                    try:
+                        video_data = download_video(video_url)
+                        st.success(
+                            "Downloaded successfully! Processing extraction pipeline...")
 
-    if up_file and st.button("Process Video"):
-        run_extraction_pipeline(up_file)
+                        with st.spinner("Running visual and audio analysis..."):
+                            run_extraction_pipeline(video_data)
+
+                    except Exception as e:
+                        st.error(
+                            f"Failed to download or process Reel. Instagram might be rate-limiting. Details: {e}")
 
 
 def render_review():
@@ -32,7 +53,7 @@ def render_review():
             edited_url = st.text_input("URL (if any)", value=data["url"])
             edited_title = st.text_input("Title (if any)", value=data["title"])
             edited_description = st.text_area(
-                "Description (if any)", value=data["description"], height=100)
+                "Description (if any)", value=data["description"], height=200)
 
         if st.button("Confirm & Save to Vector Store", type="primary"):
             with st.spinner("Saving to Qdrant..."):
@@ -54,5 +75,5 @@ def render_review():
                 st.session_state.processed_video_data = None
                 st.session_state.uploader_key += 1
                 st.success(
-                    f"Successfully saved '{data['filename']}' to Qdrant!")
+                    f"Successfully saved '{data['title']}' to Qdrant!")
                 st.rerun()  # Refresh the UI
