@@ -1,7 +1,7 @@
 import streamlit as st
 import re
 
-from utils import run_extraction_pipeline, get_vector_store, combine_text, download_video, Metadata
+from utils import run_extraction_pipeline, get_vector_store, combine_text, download_video, Metadata, SessionData
 
 pattern = r"^(https?://)?(www\.)?instagram\.com/reels?/[\w-]+/?"
 
@@ -40,11 +40,20 @@ def render_review():
         st.info(
             "Review and edit the AI-generated descriptions below before saving them to the database.")
 
-        data: Metadata = st.session_state.processed_video_data
+        data: SessionData = st.session_state.processed_video_data
 
         col_thumb, col_edit = st.columns([1, 2])
         with col_thumb:
-            st.image(data["thumbnail"], caption="Captured Thumbnail")
+            frames = data["frames"]
+            COLS = 3
+            ROWS = len(frames) // COLS + 1
+
+            for i in range(ROWS):
+                cols = st.columns(COLS)
+                for j in range(COLS):
+                    idx = i * COLS + j
+                    if idx < len(frames):
+                        cols[j].image(frames[idx], caption=f"Frame {idx+1}")
         with col_edit:
             edited_visual_description = st.text_area(
                 "Visual Description (VLM)", value=data["visual_description"], height=200)
@@ -58,12 +67,13 @@ def render_review():
         if st.button("Confirm & Save to Vector Store", type="primary"):
             with st.spinner("Saving to Qdrant..."):
                 metadata: Metadata = {
-                    **data,
                     "transcript": edited_transcript,
                     "visual_description": edited_visual_description,
                     "title": edited_title,
                     "description": edited_description,
-                    "url": edited_url
+                    "url": edited_url,
+                    # Use the first frame as thumbnail
+                    "thumbnail": data["frames"][0],
                 }
 
                 combined_content = combine_text(metadata)

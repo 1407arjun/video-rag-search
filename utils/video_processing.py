@@ -18,7 +18,7 @@ class VideoProcessor:
                        stderr=subprocess.STDOUT)
         return audio_path
 
-    def _generate_thumbnail(self, image_b64: str, width=320):
+    def generate_thumbnail(self, image_b64: str, width=320):
         frame = cv2.imdecode(np.frombuffer(
             base64.b64decode(image_b64), np.uint8), cv2.IMREAD_COLOR)
         height = int(frame.shape[0] * (width / frame.shape[1]))
@@ -91,4 +91,4 @@ class VideoProcessor:
                 raise ValueError(
                     "Could not extract any frames from the video.")
 
-        return frames_b64, self._generate_thumbnail(frames_b64[0])
+        return frames_b64

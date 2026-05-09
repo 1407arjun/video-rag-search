@@ -10,6 +10,7 @@ def combine_text(metadata: Metadata) -> str:
     Audio Transcript: {metadata.get('transcript')}
     Title: {metadata.get('title')}
     Description: {metadata.get('description')}
+    URL: {metadata.get('url')}
     """
 
 

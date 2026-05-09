@@ -55,11 +55,11 @@ class DataExtractor:
 
         progress.progress(
             40, text="Audio transcribed. Extracting dynamic frames...")
-        frames, thumbnail = self.processor.sample_video()
+        frames = self.processor.sample_video()
 
         progress.progress(
             60, text=f"Found {len(frames)} unique frame(s). Analyzing visuals with VLM...")
         caption = self._caption_video(frames)
 
         progress.progress(100, text="Processing complete! Ready for review.")
-        return transcript, caption, f"data:image/jpeg;base64,{thumbnail}"
+        return transcript, caption, [f"data:image/jpeg;base64,{self.processor.generate_thumbnail(b64)}" for b64 in frames]

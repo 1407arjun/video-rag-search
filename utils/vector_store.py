@@ -13,6 +13,7 @@ class Metadata(TypedDict):
     title: str
     description: str
     thumbnail: str
+    url: str
 
 
 class VectorStore:
