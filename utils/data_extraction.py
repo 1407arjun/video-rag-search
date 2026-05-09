@@ -57,7 +57,8 @@ class DataExtractor:
             40, text="Audio transcribed. Extracting dynamic frames...")
         frames, thumbnail = self.processor.sample_video()
 
-        progress.progress(60, text="Analyzing visuals with VLM...")
+        progress.progress(
+            60, text=f"Found {len(frames)} unique frame(s). Analyzing visuals with VLM...")
         caption = self._caption_video(frames)
 
         progress.progress(100, text="Processing complete! Ready for review.")
