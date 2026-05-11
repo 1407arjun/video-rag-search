@@ -10,3 +10,4 @@ opencv-python-headless
 python-dotenv
 rank-bm25
 yt-dlp
+nltk
