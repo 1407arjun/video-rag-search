@@ -11,6 +11,7 @@ from utils import Metadata
 
 nltk.download('punkt_tab')
 nltk.download('stopwords')
+nltk.download('wordnet')
 
 
 def combine_text(metadata: Metadata) -> str:
