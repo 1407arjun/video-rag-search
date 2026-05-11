@@ -6,10 +6,10 @@ from utils import get_vector_store, rerank_documents
 def render_search():
     query = st.text_input(
         "Search by content (e.g., 'someone making a recipe'):")
-    if query:
+    if query and len(query.strip()) >= 3:
         docs = get_vector_store().similarity_search(query, retreival_count=10)
         if docs:
-            reranked_docs = rerank_documents(query, docs, top_k=5)
+            reranked_docs = rerank_documents(query.strip(), docs, top_k=5)
             for i, (metadata, score) in enumerate(reranked_docs):
                 with st.container(border=True):
                     col1, col2 = st.columns([1, 3])
