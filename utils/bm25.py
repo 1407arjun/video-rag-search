@@ -60,6 +60,8 @@ def rerank_documents(query, docs, top_k=5) -> list[tuple[Metadata, float]]:
     scored_docs.sort(key=lambda x: x[1], reverse=True)
     # Take the top k after reranking
     scored_docs = scored_docs[:top_k]
+    # Remove any documents with a score of 0
+    scored_docs = [doc for doc in scored_docs if doc[1] > 0]
 
     # Check for distinct gap in scores to determine if we should cut off earlier than top_k
     differences = np.abs(
