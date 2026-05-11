@@ -1,5 +1,6 @@
 from rank_bm25 import BM25Okapi
 import re
+import numpy as np
 
 from utils import Metadata
 
@@ -30,6 +31,18 @@ def rerank_documents(query, docs, top_k=5) -> list[tuple[Metadata, float]]:
 
     # Sort descending by BM25 score
     scored_docs.sort(key=lambda x: x[1], reverse=True)
-
     # Take the top k after reranking
-    return scored_docs[:top_k]
+    scored_docs = scored_docs[:top_k]
+
+    # Check for distinct gap in scores to determine if we should cut off earlier than top_k
+    differences = np.abs(
+        np.diff(np.array([score for _, score in scored_docs])))
+    max_gap = np.max(differences)
+    avg_gap = np.mean(differences)
+
+    # If the largest gap is 2 times larger than the average gap
+    if max_gap >= (avg_gap * 2):
+        largest_gap_index = np.argmax(differences)
+        return scored_docs[:largest_gap_index + 1]
+    else:
+        return scored_docs

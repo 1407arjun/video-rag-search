@@ -7,7 +7,7 @@ def render_search():
     query = st.text_input(
         "Search by content (e.g., 'someone making a recipe'):")
     if query:
-        docs = get_vector_store().similarity_search(query, retreival_count=20)
+        docs = get_vector_store().similarity_search(query, retreival_count=10)
         if docs:
             reranked_docs = rerank_documents(query, docs, top_k=5)
             for i, (metadata, score) in enumerate(reranked_docs):
