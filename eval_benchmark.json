@@ -1,0 +1,51 @@
+{
+  "queries": [
+    {
+      "query": "panel discussion",
+      "relevant_urls": [
+        "https://www.instagram.com/reels/DYJtpYLte0B/",
+        "https://www.instagram.com/reels/DXb4N9riE6P/",
+        "https://www.instagram.com/reels/DXbrxBFjHWy/"
+      ]
+    },
+    {
+      "query": "group dance",
+      "relevant_urls": [
+        "https://www.instagram.com/reels/DUWa8GfkcBq/",
+        "https://www.instagram.com/reels/DYHy43cIJfQ/",
+        "https://www.instagram.com/reels/DLqCePcyzXU/"
+      ]
+    },
+    {
+      "query": "creme brulee",
+      "relevant_urls": [
+        "https://www.instagram.com/reels/DTLAiSvEsUA/"
+
+      ]
+    },
+    {
+      "query": "A man in a black shirt",
+      "relevant_urls": [
+        "https://www.instagram.com/reels/DX9qMh0z6fr/",
+        "https://www.instagram.com/reels/DYHy43cIJfQ/"
+      ]
+    },
+    {
+      "query": "hip hop dance choreography",
+      "relevant_urls": [
+        "https://www.instagram.com/reels/DLqCePcyzXU/",
+        "https://www.instagram.com/reels/DYJ_zvpSaTS/",
+        "https://www.instagram.com/reels/DYHy43cIJfQ/",
+        "https://www.instagram.com/reels/DUWa8GfkcBq/"
+      ]
+    },
+    {
+      "query": "easy recipe to try at home",
+      "relevant_urls": [
+        "https://www.instagram.com/reels/DTLAiSvEsUA/",
+        "https://www.instagram.com/reels/DYOjZPxSU1h/",
+        "https://www.instagram.com/reels/DWgeWw2khxn/"
+      ]
+    }
+  ]
+}
