@@ -21,7 +21,7 @@ def run_extraction_pipeline(video_data: VideoData):
         metadata: SessionData = {
             "transcript": transcript,
             "visual_description": caption,
-            "title": f"Video by {video_data['uploader']}",
+            "title": f"Video by {video_data['uploader'] or 'Unknown'}",
             "description": video_data["caption"],
             "frames": thumbnails,
             "url": video_data["original_url"]

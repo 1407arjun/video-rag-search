@@ -7,7 +7,7 @@ pattern = r"^(https?://)?(www\.)?instagram\.com/reels?/[\w-]+/?"
 
 
 def render_upload():
-    st.subheader("1. Paste Instagram Video URL")
+    st.subheader("1. Download Instagram Reel")
     video_url = st.text_input(
         "Enter Instagram Reel URL",
         placeholder="https://www.instagram.com/reels/...",
@@ -16,7 +16,7 @@ def render_upload():
     if video_url:
         if re.match(pattern, video_url) is None:
             st.error(
-                "❌ This does not look like a valid Instagram Reel URL. Please check the link and try again.")
+                "This does not look like a valid Instagram Reel URL. Please check the link and try again.")
         else:
             if st.button("Download & Process"):
                 try:
@@ -30,7 +30,7 @@ def render_upload():
 
                 except Exception as e:
                     st.error(
-                        f"Failed to download or process Reel. Instagram might be rate-limiting. Details: {e}")
+                        f"Failed to download or process reel. Instagram might be rate-limiting. Details: {e}")
 
 
 def render_review():
@@ -38,7 +38,7 @@ def render_review():
         st.divider()
         st.subheader("2. Review Extracted Data")
         st.info(
-            "Review and edit the AI-generated descriptions below before saving them to the database.")
+            "Review and edit the AI-generated descriptions below before saving them to the vector database.")
 
         data: SessionData = st.session_state.processed_video_data
 

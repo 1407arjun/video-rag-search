@@ -1,10 +1,37 @@
 import streamlit as st
 
-from utils import get_vector_store
+from utils import get_vector_store, Metadata
+
+
+def render_card(metadata: Metadata, id: str | None = None, rank: int | None = None, score: float | None = None):
+    with st.container(border=True):
+        c1, c2 = st.columns([1, 4])
+        with c1:
+            st.image(metadata.get('thumbnail'), width=250)
+        with c2:
+            title = metadata.get('title', 'Untitled Video') + (
+                f" (Rank: #{rank}, Score: {score:.2f})" if rank is not None and score is not None else "")
+            st.subheader(title)
+            if metadata.get('url') is not None:
+                st.markdown(
+                    f"[{metadata.get('url')}]({metadata.get('url')})")
+            st.caption(
+                f"**Caption:** {metadata.get('description', '')}")
+            st.caption(
+                f"**Visuals:** {metadata.get('visual_description', '')}")
+            st.caption(
+                f"**Transcript:** {metadata.get('transcript', '')}")
+            if id is not None:
+                if st.button("Delete", key=f"del_{id}"):
+                    with st.spinner("Deleting..."):
+                        get_vector_store().delete_document(id)
+                    st.success(
+                        f"Deleted '{metadata.get('title')}'")
+                    st.rerun()  # Refresh the UI instantly
 
 
 def render_library():
-    st.subheader("Indexed Videos")
+    st.subheader("Ingested Videos")
     try:
         records = get_vector_store().list_documents()
 
@@ -12,31 +39,8 @@ def render_library():
             st.info("No videos in the database yet.")
         else:
             for record in records:
-                payload = record.payload
-                # LangChain Qdrant integration nests your metadata inside a "metadata" key in the payload
-                metadata = payload.get("metadata", {})
-                with st.container(border=True):
-                    c1, c2 = st.columns([1, 4])
-                    with c1:
-                        st.image(metadata.get('thumbnail'))
-                    with c2:
-                        st.markdown(
-                            f"**🎬 {metadata.get('title')}**")
-                        st.caption(
-                            f"**Caption:** {metadata.get('description', '')[:300]}...")
-                        st.caption(
-                            f"**Visuals:** {metadata.get('visual_description', '')[:300]}...")
-                        st.caption(
-                            f"**Transcript:** {metadata.get('transcript', '')[:300]}...")
-                        if metadata.get('url') is not None:
-                            st.markdown(
-                                f"[{metadata.get('url')}]({metadata.get('url')})")
-                        if st.button("Delete", key=f"del_{record.id}"):
-                            with st.spinner("Deleting..."):
-                                get_vector_store().delete_document(record.id)
-                            st.success(
-                                f"Deleted '{metadata.get('title')}'")
-                            st.rerun()  # Refresh the UI instantly
+                metadata = record.payload.get("metadata", {})
+                render_card(metadata, id=record.id)
     except Exception as e:
         st.error(
             f"Could not load library. Ensure Qdrant is running. ({e})")

@@ -15,6 +15,9 @@ class Metadata(TypedDict):
     thumbnail: str
     url: str
 
+class Record(TypedDict):
+    id: str
+    payload: Metadata
 
 class VectorStore:
     def __init__(self, url: str, api_key: str, collection_name: str):
@@ -52,7 +55,7 @@ class VectorStore:
             points_selector=models.PointIdsList(points=[document_id]),
         )
 
-    def list_documents(self) -> list[Metadata]:
+    def list_documents(self) -> list[Record]:
         records, _ = self.client.scroll(
             collection_name=self.collection_name,
             limit=100,  # Adjust limit or implement pagination if library grows large

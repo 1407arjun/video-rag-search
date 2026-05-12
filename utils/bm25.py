@@ -63,6 +63,9 @@ def rerank_documents(query, docs, top_k=5) -> list[tuple[Metadata, float]]:
     # Remove any documents with a score of 0
     scored_docs = [doc for doc in scored_docs if doc[1] > 0]
 
+    if len(scored_docs) <= 1:
+        return scored_docs
+
     # Check for distinct gap in scores to determine if we should cut off earlier than top_k
     differences = np.abs(
         np.diff(np.array([score for _, score in scored_docs])))
