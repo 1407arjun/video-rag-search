@@ -128,9 +128,6 @@ def compute_metrics(results: list[tuple[list, set]], ks: list[int]) -> dict[str,
         metrics[f"P@{k}"] = float(np.mean([precision_at_k(r, rel, k) for r, rel in results]))
         metrics[f"R@{k}"] = float(np.mean([recall_at_k(r, rel, k) for r, rel in results]))
         metrics[f"F1@{k}"] = float(np.mean([f1_at_k(r, rel, k) for r, rel in results]))
-    metrics["P@5"] = float(np.mean([precision_at_k(r, rel, 5) for r, rel in results]))
-    metrics["R@5"] = float(np.mean([recall_at_k(r, rel, 5) for r, rel in results]))
-    metrics["F1@5"] = float(np.mean([f1_at_k(r, rel, 5) for r, rel in results]))
     return metrics
 
 
@@ -151,7 +148,7 @@ def print_table(all_metrics: dict[str, dict[str, float]]) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Evaluate video RAG retrieval quality")
     parser.add_argument("--benchmark", default="eval_benchmark.json")
-    parser.add_argument("--k", nargs="+", type=int, default=[1])
+    parser.add_argument("--k", nargs="+", type=int, default=[1, 5])
     parser.add_argument("--retrieval-count", type=int, default=20)
     parser.add_argument("--output", default=None)
     args = parser.parse_args()
