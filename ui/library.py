@@ -3,15 +3,13 @@ import streamlit as st
 from utils import get_vector_store, Metadata
 
 
-def render_card(metadata: Metadata, id: str | None = None, rank: int | None = None, score: float | None = None):
+def render_card(metadata: Metadata, id: str):
     with st.container(border=True):
         c1, c2 = st.columns([1, 4])
         with c1:
             st.image(metadata.get('thumbnail'), width=250)
         with c2:
-            title = metadata.get('title', 'Untitled Video') + (
-                f" (Rank: #{rank}, Score: {score:.2f})" if rank is not None and score is not None else "")
-            st.subheader(title)
+            st.subheader(metadata.get('title', 'Untitled Video'))
             if metadata.get('url') is not None:
                 st.markdown(
                     f"[{metadata.get('url')}]({metadata.get('url')})")
@@ -21,13 +19,12 @@ def render_card(metadata: Metadata, id: str | None = None, rank: int | None = No
                 f"**Visuals:** {metadata.get('visual_description', '')}")
             st.caption(
                 f"**Transcript:** {metadata.get('transcript', '')}")
-            if id is not None:
-                if st.button("Delete", key=f"del_{id}"):
-                    with st.spinner("Deleting..."):
-                        get_vector_store().delete_document(id)
-                    st.success(
-                        f"Deleted '{metadata.get('title')}'")
-                    st.rerun()  # Refresh the UI instantly
+            if st.button("Delete", key=f"del_{id}"):
+                with st.spinner("Deleting..."):
+                    get_vector_store().delete_document(id)
+                st.success(
+                    f"Deleted '{metadata.get('title')}'")
+                st.rerun()  # Refresh the UI instantly
 
 
 def render_library():
@@ -40,7 +37,7 @@ def render_library():
         else:
             for record in records:
                 metadata = record.payload.get("metadata", {})
-                render_card(metadata, id=record.id)
+                render_card(metadata, record.id)
     except Exception as e:
         st.error(
             f"Could not load library. Ensure Qdrant is running. ({e})")
