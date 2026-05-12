@@ -1,51 +1,272 @@
 {
-  "queries": [
-    {
-      "query": "panel discussion",
-      "relevant_urls": [
-        "https://www.instagram.com/reels/DYJtpYLte0B/",
-        "https://www.instagram.com/reels/DXb4N9riE6P/",
-        "https://www.instagram.com/reels/DXbrxBFjHWy/"
-      ]
-    },
-    {
-      "query": "group dance",
-      "relevant_urls": [
-        "https://www.instagram.com/reels/DUWa8GfkcBq/",
-        "https://www.instagram.com/reels/DYHy43cIJfQ/",
-        "https://www.instagram.com/reels/DLqCePcyzXU/"
-      ]
-    },
-    {
-      "query": "creme brulee",
-      "relevant_urls": [
-        "https://www.instagram.com/reels/DTLAiSvEsUA/"
-
-      ]
-    },
-    {
-      "query": "A man in a black shirt",
-      "relevant_urls": [
-        "https://www.instagram.com/reels/DX9qMh0z6fr/",
-        "https://www.instagram.com/reels/DYHy43cIJfQ/"
-      ]
-    },
-    {
-      "query": "hip hop dance choreography",
-      "relevant_urls": [
-        "https://www.instagram.com/reels/DLqCePcyzXU/",
-        "https://www.instagram.com/reels/DYJ_zvpSaTS/",
-        "https://www.instagram.com/reels/DYHy43cIJfQ/",
-        "https://www.instagram.com/reels/DUWa8GfkcBq/"
-      ]
-    },
-    {
-      "query": "easy recipe to try at home",
-      "relevant_urls": [
-        "https://www.instagram.com/reels/DTLAiSvEsUA/",
-        "https://www.instagram.com/reels/DYOjZPxSU1h/",
-        "https://www.instagram.com/reels/DWgeWw2khxn/"
-      ]
-    }
-  ]
+    "queries": [
+        {
+            "query": "advice about emailing professors for opportunities",
+            "relevant_urls": ["https://www.instagram.com/reels/DX7cOItio4S/"]
+        },
+        {
+            "query": "motivational talk about taking risks and seizing opportunities",
+            "relevant_urls": ["https://www.instagram.com/reels/DYJtpYLte0B/"]
+        },
+        {
+            "query": "relationship advice about showing love and effort",
+            "relevant_urls": ["https://www.instagram.com/reels/DX_95UbCzDy/"]
+        },
+        {
+            "query": "things couples should discuss before marriage",
+            "relevant_urls": ["https://www.instagram.com/reels/DXbrxBFjHWy/"]
+        },
+        {
+            "query": "discussion about AI making skilled people more valuable",
+            "relevant_urls": ["https://www.instagram.com/reels/DYGoWgWRvLT/"]
+        },
+        {
+            "query": "robotics and AI funding boom in science research",
+            "relevant_urls": ["https://www.instagram.com/reels/DYAcGZrFN95/"]
+        },
+        {
+            "query": "panel discussion about branding and reputation management",
+            "relevant_urls": ["https://www.instagram.com/reels/DXb4N9riE6P/"]
+        },
+        {
+            "query": "people dancing together in a studio with hip hop choreography",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DLqCePcyzXU/",
+                "https://www.instagram.com/reels/DYJ_zvpSaTS/",
+                "https://www.instagram.com/reels/DYHy43cIJfQ/",
+                "https://www.instagram.com/reels/DUWa8GfkcBq/"
+            ]
+        },
+        {
+            "query": "hip hop dance performance with synchronized moves",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DYJ_zvpSaTS/",
+                "https://www.instagram.com/reels/DYHy43cIJfQ/",
+                "https://www.instagram.com/reels/DUWa8GfkcBq/"
+            ]
+        },
+        {
+            "query": "stage dance performance with purple lighting",
+            "relevant_urls": ["https://www.instagram.com/reels/DUWa8GfkcBq/"]
+        },
+        {
+            "query": "friends reuniting and dancing together",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DLqCePcyzXU/",
+                "https://www.instagram.com/reels/DYHy43cIJfQ/"
+            ]
+        },
+        {
+            "query": "motivational productivity systems inspired by Japan",
+            "relevant_urls": ["https://www.instagram.com/reels/DXZLicOjskB/"]
+        },
+        {
+            "query": "video explaining kaizen and pomodoro technique",
+            "relevant_urls": ["https://www.instagram.com/reels/DXZLicOjskB/"]
+        },
+        {
+            "query": "beautiful homemade food aesthetic with desserts and brunch",
+            "relevant_urls": ["https://www.instagram.com/reels/DTLAiSvEsUA/"]
+        },
+        {
+            "query": "luxury looking breakfast setup with strawberries croissants and tea",
+            "relevant_urls": ["https://www.instagram.com/reels/DTLAiSvEsUA/"]
+        },
+        {
+            "query": "healthy smoothie bowl with fruit toppings",
+            "relevant_urls": ["https://www.instagram.com/reels/DTLAiSvEsUA/"]
+        },
+        {
+            "query": "quick summer dessert made with mango and coconut",
+            "relevant_urls": ["https://www.instagram.com/reels/DYOjZPxSU1h/"]
+        },
+        {
+            "query": "easy homemade macaroni recipe cooked in one pot",
+            "relevant_urls": ["https://www.instagram.com/reels/DWgeWw2khxn/"]
+        },
+        {
+            "query": "cooking mushrooms in butter garlic sauce",
+            "relevant_urls": ["https://www.instagram.com/reels/DW_bpGNgcbj/"]
+        },
+        {
+            "query": "vegetarian miso butter beans with mushrooms and cucumber salad",
+            "relevant_urls": ["https://www.instagram.com/reels/DYMo4YmMioo/"]
+        },
+        {
+            "query": "food reels featuring mushroom recipes",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DW_bpGNgcbj/",
+                "https://www.instagram.com/reels/DYMo4YmMioo/"
+            ]
+        },
+        {
+            "query": "fine dining vegetarian restaurant recommendation in Bengaluru",
+            "relevant_urls": ["https://www.instagram.com/reels/DYCWNc7Qc-G/"]
+        },
+        {
+            "query": "new pure veg restaurant in Jayanagar",
+            "relevant_urls": ["https://www.instagram.com/reels/DYCWNc7Qc-G/"]
+        },
+        {
+            "query": "travel lifestyle video about eating famous foods around the world",
+            "relevant_urls": ["https://www.instagram.com/reels/DX1EjBlz6lB/"]
+        },
+        {
+            "query": "people working on laptops in a scenic mountain cafe",
+            "relevant_urls": ["https://www.instagram.com/reels/DX1EjBlz6lB/"]
+        },
+        {
+            "query": "funny video about letting a fly out of the window",
+            "relevant_urls": ["https://www.instagram.com/reels/DX9qMh0z6fr/"]
+        },
+        {
+            "query": "chaotic comedy reel about opening a window for a fly",
+            "relevant_urls": ["https://www.instagram.com/reels/DX9qMh0z6fr/"]
+        },
+        {
+            "query": "nostalgic Wii Sports sibling gaming memories",
+            "relevant_urls": ["https://www.instagram.com/p/DXu4WkuETwN/"]
+        },
+        {
+            "query": "siblings playing baseball on Nintendo Wii",
+            "relevant_urls": ["https://www.instagram.com/p/DXu4WkuETwN/"]
+        },
+        {
+            "query": "funny Texas weather changing every minute",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DOyk_djgAaM/",
+                "https://www.instagram.com/reels/DXYGn93jcNF/",
+                "https://www.instagram.com/reels/C76tSsnuFLW/",
+                "https://www.instagram.com/reels/DSh9eE2Dq6d/",
+                "https://www.instagram.com/reels/DSRTtktDplU/"
+            ]
+        },
+        {
+            "query": "Texas weather memes and comedy videos",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DOyk_djgAaM/",
+                "https://www.instagram.com/reels/C76tSsnuFLW/",
+                "https://www.instagram.com/reels/DXYGn93jcNF/"
+            ]
+        },
+        {
+            "query": "POV 24 hours in Texas weather",
+            "relevant_urls": ["https://www.instagram.com/reels/DXYGn93jcNF/"]
+        },
+        {
+            "query": "explaining unpredictable Texas climate to outsiders",
+            "relevant_urls": ["https://www.instagram.com/reels/C76tSsnuFLW/"]
+        },
+        {
+            "query": "winter in Texas compared to other US states",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DSh9eE2Dq6d/",
+                "https://www.instagram.com/reels/DSRTtktDplU/"
+            ]
+        },
+        {
+            "query": "snowy streets in America contrasted with warm Texas weather",
+            "relevant_urls": ["https://www.instagram.com/reels/DSRTtktDplU/"]
+        },
+        {
+            "query": "romantic 24 hour date itinerary in Texas",
+            "relevant_urls": ["https://www.instagram.com/reels/DUldv_oEeeG/"]
+        },
+        {
+            "query": "gondola ride and romantic dinner date night",
+            "relevant_urls": ["https://www.instagram.com/reels/DUldv_oEeeG/"]
+        },
+        {
+            "query": "luxury staycation in Las Colinas Texas",
+            "relevant_urls": ["https://www.instagram.com/reels/DUldv_oEeeG/"]
+        },
+        {
+            "query": "finance creator discussing rupee crisis and gold buying",
+            "relevant_urls": ["https://www.instagram.com/reels/DYMXWeByMXF/"]
+        },
+        {
+            "query": "macro economic analysis about India forex reserves",
+            "relevant_urls": ["https://www.instagram.com/reels/DYMXWeByMXF/"]
+        },
+        {
+            "query": "video discussing RBI defending the rupee",
+            "relevant_urls": ["https://www.instagram.com/reels/DYMXWeByMXF/"]
+        },
+        {
+            "query": "AI and robotics transforming scientific research labs",
+            "relevant_urls": ["https://www.instagram.com/reels/DYAcGZrFN95/"]
+        },
+        {
+            "query": "OpenAI controlling robot arms in laboratory automation",
+            "relevant_urls": ["https://www.instagram.com/reels/DYAcGZrFN95/"]
+        },
+        {
+            "query": "talk about cancel culture and personal branding",
+            "relevant_urls": ["https://www.instagram.com/reels/DXb4N9riE6P/"]
+        },
+        {
+            "query": "conference panel with moderator discussing talent and managers",
+            "relevant_urls": ["https://www.instagram.com/reels/DXb4N9riE6P/"]
+        },
+        {
+            "query": "people cooking aesthetic vegetarian meals at home",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DTLAiSvEsUA/",
+                "https://www.instagram.com/reels/DYMo4YmMioo/",
+                "https://www.instagram.com/reels/DW_bpGNgcbj/",
+                "https://www.instagram.com/reels/DYOjZPxSU1h/"
+            ]
+        },
+        {
+            "query": "videos featuring mushroom based dishes",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DW_bpGNgcbj/",
+                "https://www.instagram.com/reels/DYMo4YmMioo/",
+                "https://www.instagram.com/reels/DYCWNc7Qc-G/"
+            ]
+        },
+        {
+            "query": "reels about love relationships and emotional connection",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DX_95UbCzDy/",
+                "https://www.instagram.com/reels/DXbrxBFjHWy/"
+            ]
+        },
+        {
+            "query": "advice videos for young ambitious students and professionals",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DX7cOItio4S/",
+                "https://www.instagram.com/reels/DYJtpYLte0B/",
+                "https://www.instagram.com/reels/DXZLicOjskB/"
+            ]
+        },
+        {
+            "query": "motivational speakers talking about success and growth",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DYJtpYLte0B/",
+                "https://www.instagram.com/reels/DXZLicOjskB/",
+                "https://www.instagram.com/reels/DX7cOItio4S/"
+            ]
+        },
+        {
+            "query": "food content with close up shots of cooking and plating",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DTLAiSvEsUA/",
+                "https://www.instagram.com/reels/DWgeWw2khxn/",
+                "https://www.instagram.com/reels/DW_bpGNgcbj/",
+                "https://www.instagram.com/reels/DYMo4YmMioo/",
+                "https://www.instagram.com/reels/DYOjZPxSU1h/"
+            ]
+        },
+        {
+            "query": "videos about Texas lifestyle weather and culture",
+            "relevant_urls": [
+                "https://www.instagram.com/reels/DOyk_djgAaM/",
+                "https://www.instagram.com/reels/DSh9eE2Dq6d/",
+                "https://www.instagram.com/reels/C76tSsnuFLW/",
+                "https://www.instagram.com/reels/DXYGn93jcNF/",
+                "https://www.instagram.com/reels/DUldv_oEeeG/"
+            ]
+        }
+    ]
 }
